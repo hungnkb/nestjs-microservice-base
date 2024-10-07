@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package auth;
+
+service UsersService {
+  rpc FindOne (UserFindOneDto) returns (User) {}
+}
+
+message User {
+  string name = 1;
+}
+
+message Users {
+  repeated User users = 1;
+}
+
+message UserFindOneDto {
+  int32 id = 1;
+}

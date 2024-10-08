@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user;
 
-service UsersService {
+service UserService {
   rpc FindOne (UserFindOneDto) returns (User) {}
 }
 

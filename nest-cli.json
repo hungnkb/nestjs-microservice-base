@@ -5,9 +5,6 @@
   "entryFile": "src/main",
   "compilerOptions": {
     "deleteOutDir": true,
-    "assets": [
-      "proto/*.proto"
-    ],
     "watchAssets": true,
     "webpack": true,
     "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
@@ -52,6 +49,15 @@
           "proto/*.proto"
         ],
         "watchAssets": true
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     }
   }

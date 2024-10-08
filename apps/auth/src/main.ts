@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AuthModule } from './auth.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
+import { AUTH_PACKAGE_NAME } from '@app/common';
+import { ReflectionService } from '@grpc/reflection';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -9,8 +10,12 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        protoPath: join(__dirname, '../user.proto'),
-        package: 'user',
+        protoPath: __dirname + '/../auth.proto',
+        package: AUTH_PACKAGE_NAME,
+        // onLoadPackageDefinition: (pkg, server) => {
+        //   new ReflectionService(pkg).addToServer(server);
+        // },
+        url: 'localhost:5001',
       },
     },
   );

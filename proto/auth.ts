@@ -10,41 +10,39 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "auth";
 
-export interface User {
-  name: string;
+export interface LoginDto {
+  username: string;
+  password: string;
 }
 
-export interface Users {
-  users: User[];
-}
-
-export interface UserFindOneDto {
+export interface UserLoginResponse {
   id: number;
+  username: string;
 }
 
 export const AUTH_PACKAGE_NAME = "auth";
 
-export interface UsersServiceClient {
-  findOne(request: UserFindOneDto): Observable<User>;
+export interface AuthServiceClient {
+  login(request: LoginDto): Observable<UserLoginResponse>;
 }
 
-export interface UsersServiceController {
-  findOne(request: UserFindOneDto): Promise<User> | Observable<User> | User;
+export interface AuthServiceController {
+  login(request: LoginDto): Promise<UserLoginResponse> | Observable<UserLoginResponse> | UserLoginResponse;
 }
 
-export function UsersServiceControllerMethods() {
+export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["findOne"];
+    const grpcMethods: string[] = ["login"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("UsersService", method)(constructor.prototype[method], method, descriptor);
+      GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("UsersService", method)(constructor.prototype[method], method, descriptor);
+      GrpcStreamMethod("AuthService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const USERS_SERVICE_NAME = "UsersService";
+export const AUTH_SERVICE_NAME = "AuthService";

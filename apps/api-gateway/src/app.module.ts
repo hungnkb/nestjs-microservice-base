@@ -1,22 +1,28 @@
 import { Module } from '@nestjs/common';
 import { Client, ClientsModule, Transport } from '@nestjs/microservices';
-import { UsersModule } from './users/users.module';
+import { constants } from 'common/constant';
 // import { ClientService } from './client/client.service';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'auth',
-        transport: Transport.GRPC,
+        name: constants.ServicesEnum.USER_SERVICE,
+        transport: Transport.TCP,
         options: {
-          package: 'auth',
-          url: 'localhost:5001',
-          protoPath: __dirname + '/../auth.proto',
+          host: 'localhost',
+          port: 5001,
+        },
+      },
+      {
+        name: constants.ServicesEnum.AUTH_SERVICE,
+        transport: Transport.TCP,
+        options: {
+          host: 'localhost',
+          port: 5002,
         },
       },
     ]),
-    UsersModule,
   ],
   controllers: [],
   providers: [],

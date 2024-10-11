@@ -1,0 +1,4 @@
+ports:
+  apiGateway: 50000
+  authService: 50001
+  userService: 50002

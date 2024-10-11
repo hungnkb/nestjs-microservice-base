@@ -1,0 +1,6 @@
+services:
+  apiGateway:
+    port: 50000
+  auth:
+    port: 50001
+    url: 'localhost:50001'

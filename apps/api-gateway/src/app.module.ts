@@ -1,16 +1,19 @@
 import {
   AUTH_PACKAGE_NAME,
-  AUTH_SERVICE,
   AUTH_SERVICE_NAME,
   USER_PACKAGE_NAME,
-  USER_SERVICE_NAME,
 } from '@app/common';
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import configService from '@app/config/config.service';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [configService],
+    }),
     ClientsModule.register([
       {
         name: AUTH_SERVICE_NAME,
